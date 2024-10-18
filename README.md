@@ -33,3 +33,8 @@ fire ball (green)
 
 # Time Details and Changelist
 <Add information to this section about the time you've taken for this task along with a professional changelist.>
+
+Compiler Issue Fixed: 15 minutes
+Removed the include that was placed incorrectly in the power up base .h class.
+
+
