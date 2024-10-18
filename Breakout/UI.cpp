@@ -90,3 +90,17 @@ void UI::render()
 		_window->draw(life);
 	}
 }
+
+void UI::GenerateLives(int lives)
+{
+	for (int i = lives; i > 0; --i)
+	{
+		sf::CircleShape newLife;
+		newLife.setFillColor(sf::Color::Red);
+		newLife.setOutlineColor(sf::Color::Cyan);
+		newLife.setOutlineThickness(4.0f);
+		newLife.setRadius(LIFE_RADIUS);
+		newLife.setPosition((LIFE_RADIUS * 2 + LIFE_PADDING) * i, LIFE_PADDING);
+		_lives.push_back(newLife);
+	}
+}
