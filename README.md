@@ -37,7 +37,10 @@ fire ball (green)
 Compiler Issue Fixed: 15 mins~
 Removed the include that was placed incorrectly in the power up base .h class.
 
-Small Ball Power Up: 45 mins~
+Big Ball Power Up: 45 mins~
 Power up that makes the ball smaller is added to the power up pool
+
+Small Ball Power Up: 30 mins~
+Power up that makes the ball bigger is added to the power up pool
 
 
