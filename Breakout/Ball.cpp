@@ -32,7 +32,7 @@ void Ball::update(float dt)
         }        
         else
         {
-            _sprite.setRadius(RADIUS);
+            setSize(RADIUS, 0);
         }
     }
 
