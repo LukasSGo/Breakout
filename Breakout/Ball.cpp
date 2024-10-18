@@ -25,11 +25,15 @@ void Ball::update(float dt)
     {
         if (_velocity != VELOCITY)
             _velocity = VELOCITY;   // reset speed.
-        else
+        else if (_isFireBall)
         {
             setFireBall(0);    // disable fireball
             _sprite.setFillColor(sf::Color::Cyan);  // back to normal colour.
         }        
+        else
+        {
+            _sprite.setRadius(RADIUS);
+        }
     }
 
     // Fireball effect
@@ -100,6 +104,12 @@ void Ball::render()
 void Ball::setVelocity(float coeff, float duration)
 {
     _velocity = coeff * VELOCITY;
+    _timeWithPowerupEffect = duration;
+}
+
+void Ball::setSize(float radius, float duration)
+{
+    _sprite.setRadius(radius);
     _timeWithPowerupEffect = duration;
 }
 
