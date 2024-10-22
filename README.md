@@ -43,4 +43,10 @@ Power up that makes the ball smaller is added to the power up pool
 Small Ball Power Up: 30 mins~
 Power up that makes the ball bigger is added to the power up pool
 
+Game Loop Created: 40 mins~
+The game now loops back to the begining after winning or losing.
+
+Camera Shake: 45 mins~
+The camera now shakes when you lose a life
+
 
