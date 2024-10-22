@@ -23,7 +23,7 @@ void GameManager::initialize()
     _ball = new Ball(_window, 400.0f, this); 
     _powerupManager = new PowerupManager(_window, _paddle, _ball);
     _ui = new UI(_window, _lives, this);
-
+    _masterText.setString("");
     // Create bricks
     _brickManager->createBricks(5, 10, 80.0f, 30.0f, 5.0f);
 }
@@ -42,18 +42,14 @@ void GameManager::update(float dt)
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
         {
             _lives = 3;
-            _masterText.setString("");
-            _ui->GenerateLives(_lives);
-            _ball->_timeWithPowerupEffect = 0;
-            _ui->updatePowerupText({ none, 0.0f });
-            _brickManager->ResetBricks();
+            initialize();
         }
 
         return;
     }
     if (_levelComplete)
     {
-        _masterText.setString("Level completed.");
+        _masterText.setString("Level completed.\n Press R To Start A New Game!");
         return;
     }
     // pause and pause handling
