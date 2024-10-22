@@ -36,6 +36,7 @@ private:
     int _lives;
     bool _levelComplete;
     int _screenShakeCounter;
+    bool _mouseControls;
     std::pair<POWERUPS, float> _powerupInEffect;
 
     sf::Font _font;

@@ -6,7 +6,7 @@
 GameManager::GameManager(sf::RenderWindow* window)
     : _window(window), _paddle(nullptr), _ball(nullptr), _brickManager(nullptr), _powerupManager(nullptr),
     _messagingSystem(nullptr), _ui(nullptr), _pause(false), _time(0.f), _lives(3), _pauseHold(0.f), _levelComplete(false),
-    _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f), _screenShakeCounter(0)
+    _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f), _screenShakeCounter(0), _mouseControls(true)
 {
     _font.loadFromFile("font/montS.ttf");
     _masterText.setFont(_font);
@@ -33,6 +33,7 @@ void GameManager::update(float dt)
     _powerupInEffect = _powerupManager->getPowerupInEffect();
     _ui->updatePowerupText(_powerupInEffect);
     _powerupInEffect.second -= dt;
+
     
 
     if (_lives <= 0)
@@ -83,6 +84,7 @@ void GameManager::update(float dt)
         return;
     }
 
+
     // timer.
     _time += dt;
 
@@ -93,9 +95,17 @@ void GameManager::update(float dt)
         _timeLastPowerupSpawned = _time;
     }
 
+
     // move paddle
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) _paddle->moveRight(dt);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) _paddle->moveLeft(dt);
+    if (_mouseControls == true)
+    {
+        _paddle->mouseMovement(dt);
+    }
+    else
+    {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) _paddle->moveRight(dt);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) _paddle->moveLeft(dt);
+    }
 
     if (_screenShakeCounter > 0)
     {
