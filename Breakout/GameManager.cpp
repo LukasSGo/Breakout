@@ -6,7 +6,7 @@
 GameManager::GameManager(sf::RenderWindow* window)
     : _window(window), _paddle(nullptr), _ball(nullptr), _brickManager(nullptr), _powerupManager(nullptr),
     _messagingSystem(nullptr), _ui(nullptr), _pause(false), _time(0.f), _lives(3), _pauseHold(0.f), _levelComplete(false),
-    _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f)
+    _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f), _screenShakeCounter(0)
 {
     _font.loadFromFile("font/montS.ttf");
     _masterText.setFont(_font);
@@ -42,6 +42,7 @@ void GameManager::update(float dt)
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
         {
             _lives = 3;
+            _screenShakeCounter = 0;
             initialize();
         }
 
@@ -50,6 +51,14 @@ void GameManager::update(float dt)
     if (_levelComplete)
     {
         _masterText.setString("Level completed.\n Press R To Start A New Game!");
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+        {
+            _lives = 3;
+            _screenShakeCounter = 0;
+            initialize();
+        }
+
         return;
     }
     // pause and pause handling
@@ -88,6 +97,15 @@ void GameManager::update(float dt)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) _paddle->moveRight(dt);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) _paddle->moveLeft(dt);
 
+    if (_screenShakeCounter > 0)
+    {
+        ScreenShake();
+    }
+    else
+    {
+        _window->setView(sf::View(sf::FloatRect(0, 0, 1000, 800)));
+    }
+
     // update everything 
     _paddle->update(dt);
     _ball->update(dt);
@@ -100,6 +118,7 @@ void GameManager::loseLife()
     _ui->lifeLost(_lives);
 
     // TODO screen shake.
+    _screenShakeCounter = 200;
 }
 
 void GameManager::render()
@@ -115,6 +134,15 @@ void GameManager::render()
 void GameManager::levelComplete()
 {
     _levelComplete = true;
+}
+
+void GameManager::ScreenShake()
+{
+    int randomX = rand() % 21;
+    int randomY = rand() % 21;
+    _window->setView(sf::View(sf::FloatRect(randomX, randomY, 1000, 800)));
+
+    _screenShakeCounter -= 1;
 }
 
 sf::RenderWindow* GameManager::getWindow() const { return _window; }
