@@ -49,4 +49,7 @@ The game now loops back to the begining after winning or losing.
 Camera Shake: 45 mins~
 The camera now shakes when you lose a life
 
+Mouse Controls: 60 minutes~
+The paddle now moves with the mouse position in the window.
+
 
